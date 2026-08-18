@@ -1,9 +1,9 @@
-package com.assignment1.services;
+package com.medicare.services;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.assignment1.model.Patient;
+import com.medicare.model.Patient;
 
 public class PatientManager {
 
@@ -11,6 +11,21 @@ public class PatientManager {
 
     public PatientManager() {
         this.patientList = new ArrayList<>();
+    }
+
+    //temporary patient data entry for testing
+    public void loadTestData() {
+        patientList.add(new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", "Outpatient"));
+        patientList.add(new Patient("P002", "Jane", "Smith", 30, "Female", "Appendicitis", "Emergency"));
+        patientList.add(new Patient("P003", "Michael", "Johnson", 62, "Male", "Pneumonia", "Inpatient"));
+        patientList.add(new Patient("P004", "Emily", "Davis", 25, "Female", "Migraine", "Outpatient"));
+        patientList.add(new Patient("P005", "Robert", "Brown", 78, "Male", "Heart Failure", "Inpatient"));
+        patientList.add(new Patient("P006", "Sarah", "Wilson", 40, "Female", "Fractured Arm", "Emergency"));
+        patientList.add(new Patient("P007", "David", "Lee", 55, "Male", "Type 2 Diabetes", "Outpatient"));
+        patientList.add(new Patient("P008", "Laura", "Garcia", 29, "Female", "Severe Asthma", "Inpatient"));
+        patientList.add(new Patient("P009", "James", "Martinez", 12, "Male", "Tonsillitis", "Outpatient"));
+        patientList.add(new Patient("P010", "Maria", "Rodriguez", 50, "Female", "Covid-19", "Inpatient"));
+        System.out.println("10 Test Patients Loaded Successfully.");
     }
 
     /*
