@@ -1,4 +1,4 @@
-package com.assignment1.model;
+package com.medicare.model;
 
 public class Patient {
 
@@ -79,11 +79,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient [patientID=" + patientID + ", firstName=" + firstName + ", lastName=" + lastName + ", age="
-                + age + ", gender=" + gender + ", medicalCondition=" + medicalCondition + ", patientCategory="
-                + patientCategory + "]";
+        return String.format("patientId=%-6s | firstName=%-20s | lastName=%-20s | age=&-4d | gender=%-10s | medicalCondition=%-30s | patientCategory=%-10s", patientID, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
-
-    
 
 }
