@@ -3,6 +3,9 @@ package com.medicare.services;
 import com.medicare.model.Bed;
 import com.medicare.model.Patient;
 
+/**
+ * BedManager
+ */
 public class BedManager {
 
     private Bed[][] wardLayout;
@@ -19,6 +22,7 @@ public class BedManager {
     /**
      *
      */
+
     public void initialiseBeds() {
         int bedCounter = 1;
 
@@ -67,6 +71,10 @@ public class BedManager {
         return false;
     }
 
+    /**
+     * @param bedNumber
+     * @return
+     */
     public boolean releaseBed(String bedNumber) {
 
         for (int i = 0; i < wardLayout.length; i++) {
@@ -76,7 +84,7 @@ public class BedManager {
 
                 if (currentBed.getBedNumber().equalsIgnoreCase(bedNumber)) {
 
-                    if(!currentBed.isOccupied()){
+                    if (!currentBed.isOccupied()) {
                         System.out.println("Release Bed Failed: " + currentBed.getBedNumber() + " is already empty.");
                     }
 
@@ -93,28 +101,76 @@ public class BedManager {
         return false;
     }
 
-    public void displayCompleteLayout(){
+    /**
+     *
+     */
+    public void displayCompleteLayout() {
 
         for (int i = 0; i < wardLayout.length; i++) {
             for (int j = 0; j < wardLayout[i].length; j++) {
 
                 Bed currentBed = wardLayout[i][j];
 
-                if(currentBed.isOccupied())
-                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + "]");
-                else
+                if (currentBed.isOccupied()) {
+                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + "]"); 
+                }else {
                     System.out.print("[" + currentBed.getBedNumber() + " - Empty]");
+                }
             }
         }
         System.out.println();
     }
 
-    public void displayAvailableBeds(){
+    /**
+     *
+     */
+    public void displayAvailableBeds() {
+
+        System.out.println("--- Available Beds ---");
+        boolean hasAvailable = false;
+        for (int i = 0; i < wardLayout.length; i++) {
+            for (int j = 0; j < wardLayout[i].length; j++) {
+
+                Bed currentBed = wardLayout[i][j];
+
+                if (!currentBed.isOccupied()) {
+
+                    System.out.print("[" + currentBed.getBedNumber() + "]");
+                    hasAvailable = true;
+                }
+            }
+        }
+        if (!hasAvailable) {
+            System.out.println("No Avaialble beds found (Ward is Full)");
+        }
+        System.out.println();
 
     }
 
-    public void displayOccupiedBeds(){
-        
+    /**
+     *
+     */
+    public void displayOccupiedBeds() {
+
+        System.out.println("--- Occupied Beds ---");
+        boolean hasOccupied = false;
+        for (int i = 0; i < wardLayout.length; i++) {
+            for (int j = 0; j < wardLayout[i].length; j++) {
+
+                Bed currentBed = wardLayout[i][j];
+
+                if (currentBed.isOccupied()) {
+
+                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + "]");
+                    hasOccupied = true;
+                }
+            }
+        }
+
+        if (!hasOccupied) {
+            System.out.println("No occupied beds at the moment.");
+        }
+        System.out.println();
     }
 
 }
