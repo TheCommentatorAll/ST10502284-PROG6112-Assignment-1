@@ -30,6 +30,8 @@ public class BedManager {
 
             for (int j = 0; j < wardLayout[i].length; j++) {
 
+                
+
                 String bedID = String.format("B%02d", bedCounter);
 
                 wardLayout[i][j] = new Bed(bedID);
@@ -47,6 +49,7 @@ public class BedManager {
      */
     public boolean allocateBeds(Patient patient) {
 
+        System.out.println("DEBUG: Testing Patient Category -> '" + patient.getPatientCategory() + "'");
         if (patient == null || !"Inpatient".equalsIgnoreCase(patient.getPatientCategory())) {
             System.out.println("Allocation failed: Patient must be categorised as 'Inpatient'.");
 
@@ -58,10 +61,10 @@ public class BedManager {
 
                 Bed currentBed = wardLayout[i][j];
 
-                if (currentBed.isOccupied()) {
+                if (!currentBed.isOccupied()) {
                     currentBed.setOccupied(true);
                     currentBed.setAssignedPatientId(patient.getPatientID());
-                    System.out.println("Success; " + patient.getFirstName() + " assigned to bed " + currentBed.getBedNumber());
+                    System.out.println("Success: " + patient.getFirstName() + " assigned to bed {" + currentBed.getBedNumber() + "}");
                     return true;
                 }
             }
@@ -117,8 +120,10 @@ public class BedManager {
                     System.out.print("[" + currentBed.getBedNumber() + " - Empty]");
                 }
             }
+
+            System.out.println();
         }
-        System.out.println();
+        
     }
 
     /**
@@ -139,11 +144,13 @@ public class BedManager {
                     hasAvailable = true;
                 }
             }
+
+            System.out.println();
         }
         if (!hasAvailable) {
             System.out.println("No Avaialble beds found (Ward is Full)");
         }
-        System.out.println();
+        
 
     }
 
@@ -165,12 +172,14 @@ public class BedManager {
                     hasOccupied = true;
                 }
             }
+
+            System.out.println();
         }
 
         if (!hasOccupied) {
             System.out.println("No occupied beds at the moment.");
         }
-        System.out.println();
+        
     }
 
 }
