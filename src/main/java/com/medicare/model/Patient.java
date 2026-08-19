@@ -79,7 +79,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return String.format("patientId=%-6s | firstName=%-20s | lastName=%-20s | age=&-4d | gender=%-10s | medicalCondition=%-30s | patientCategory=%-10s", patientID, firstName, lastName, age, gender, medicalCondition, patientCategory);
+        return String.format("patientId=%-6s | firstName=%-15s | lastName=%-15s | age=%-4d | gender=%-10s | medicalCondition=%-25s | patientCategory=%-10s", patientID, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 
 }
