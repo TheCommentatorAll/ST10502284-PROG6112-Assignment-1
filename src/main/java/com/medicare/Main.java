@@ -23,6 +23,8 @@ public class Main {
         while (running) {
 
             try {
+                System.out.println("Welcome to Medicare, type \"exit\" at any point to return to the main menu...");
+                System.out.println();
                 System.out.println("\n--- MEDICARE PATIENT MANAGEMENT SYSTEM ---");
                 System.out.println("--------------------------------------------");
                 System.out.println("1. Register Patient");
@@ -32,8 +34,7 @@ public class Main {
                 System.out.println("5. Display all Patients");
                 System.out.println("6. Exit");
 
-                System.out.print("\n\t Select Menu Option: ");
-                String input = sc.nextLine();
+                String input = promptUser(sc, "Select Menu Option: ");
 
                 //TODO: #1 handle input validation
                 //TODO: #2 allow user to dial back to main menu at any input time
@@ -66,7 +67,7 @@ public class Main {
 
                         String gender = promptUser(sc, "Enter Patient Gender: ");
                         String condition = promptUser(sc, "Enter Patient Condition:");
-                        String category = promptUser(sc, "Enter Patient Category");
+                        String category = promptUser(sc, "Enter Patient Category (Inpatient/Emergency/Outpatient)");
 
                         Patient newPatient = new Patient(id, fName, lName, age, gender, condition, category);
                         patientManager.registerPatient(newPatient);
