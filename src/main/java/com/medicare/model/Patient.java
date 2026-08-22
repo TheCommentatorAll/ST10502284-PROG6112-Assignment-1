@@ -2,17 +2,18 @@ package com.medicare.model;
 
 public class Patient {
 
-    private String patientID;
+    private final String patientId;
     private String firstName;
     private String lastName;
     private int age;
     private String gender;
     private String medicalCondition;
-    private String patientCategory;
+    private PatientCategory patientCategory;
 
-    public Patient(String patientID, String firstName, String lastName, int age, String gender, String medicalCondition, String patientCategory) {
+    public Patient(String patientId, String firstName, String lastName, int age, String gender, String medicalCondition,
+            PatientCategory patientCategory) {
 
-        this.patientID = patientID;
+        this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -22,11 +23,7 @@ public class Patient {
     }
 
     public String getPatientID() {
-        return patientID;
-    }
-
-    public void setPatientID(String patientID) {
-        this.patientID = patientID;
+        return patientId;
     }
 
     public String getFirstName() {
@@ -69,17 +66,24 @@ public class Patient {
         this.medicalCondition = medicalCondition;
     }
 
-    public String getPatientCategory() {
+    public PatientCategory getPatientCategory() {
         return patientCategory;
     }
 
-    public void setPatientCategory(String patientCategory) {
+    public void setPatientCategory(PatientCategory patientCategory){
         this.patientCategory = patientCategory;
+    }
+
+    public void displayDetails() {
+        System.out.printf("ID: %s | Name: %s %s | Age: %d | Gender: %s | Condition: %s | Category: %s%n",
+                patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 
     @Override
     public String toString() {
-        return String.format("patientId=%-6s | firstName=%-15s | lastName=%-15s | age=%-4d | gender=%-10s | medicalCondition=%-25s | patientCategory=%-10s", patientID, firstName, lastName, age, gender, medicalCondition, patientCategory);
+        return String.format(
+                "|\tpatientId :: %-6s\t|\tfirstName :: %-15s\t|\tlastName :: %-15s\t|\tage :: %-4d\t|\tgender :: %-10s\t|\tcondition :: %-25s\t|\tcategory :: %-10s\t|",
+                patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 
 }
