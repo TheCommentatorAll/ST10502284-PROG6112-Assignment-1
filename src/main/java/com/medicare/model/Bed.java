@@ -6,7 +6,7 @@ public class Bed {
     private boolean isOccupied;
     private String assignedPatientId;
 
-    public Bed(String bedNumber){
+    public Bed(String bedNumber) {
         this.bedNumber = bedNumber;
         this.isOccupied = false;
         this.assignedPatientId = null;
@@ -35,7 +35,5 @@ public class Bed {
     public void setAssignedPatientId(String assignedPatientId) {
         this.assignedPatientId = assignedPatientId;
     }
-
-    
 
 }

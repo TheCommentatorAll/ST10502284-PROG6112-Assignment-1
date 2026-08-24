@@ -4,57 +4,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.medicare.model.Patient;
+import com.medicare.model.PatientCategory;
 
 public class PatientManager {
 
     private List<Patient> patientList;
+    private int nextIdNumber;
 
     public PatientManager() {
         this.patientList = new ArrayList<>();
+        loadTestData();
+        this.nextIdNumber = patientList.size() + 1;
     }
 
     //temporary patient data entry for testing
-   public void loadTestData() {
-    patientList.add(new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", "Outpatient"));
-    patientList.add(new Patient("P002", "Jane", "Smith", 30, "Female", "Appendicitis", "Emergency"));
-    patientList.add(new Patient("P003", "Michael", "Johnson", 62, "Male", "Pneumonia", "Inpatient"));
-    patientList.add(new Patient("P004", "Emily", "Davis", 25, "Female", "Migraine", "Outpatient"));
-    patientList.add(new Patient("P005", "Robert", "Brown", 78, "Male", "Heart Failure", "Inpatient"));
-    patientList.add(new Patient("P006", "Sarah", "Wilson", 40, "Female", "Fractured Arm", "Emergency"));
-    patientList.add(new Patient("P007", "David", "Lee", 55, "Male", "Type 2 Diabetes", "Outpatient"));
-    patientList.add(new Patient("P008", "Laura", "Garcia", 29, "Female", "Severe Asthma", "Inpatient"));
-    patientList.add(new Patient("P009", "James", "Martinez", 12, "Male", "Tonsillitis", "Outpatient"));
-    patientList.add(new Patient("P010", "Maria", "Rodriguez", 50, "Female", "Covid-19", "Inpatient"));
-    patientList.add(new Patient("P011", "William", "Taylor", 34, "Male", "Acute Pancreatitis", "Inpatient"));
-    patientList.add(new Patient("P012", "Olivia", "Anderson", 22, "Female", "Concussion", "Emergency"));
-    patientList.add(new Patient("P013", "Thomas", "Moore", 67, "Male", "Chronic Bronchitis", "Inpatient"));
-    patientList.add(new Patient("P014", "Sophia", "Jackson", 19, "Female", "Urinary Tract Infection", "Outpatient"));
-    patientList.add(new Patient("P015", "Benjamin", "White", 81, "Male", "Hip Fracture", "Inpatient"));
-    patientList.add(new Patient("P016", "Charlotte", "Harris", 36, "Female", "Gallstones", "Emergency"));
-    patientList.add(new Patient("P017", "Alexander", "Martin", 48, "Male", "Gastrointestinal Bleeding", "Inpatient"));
-    patientList.add(new Patient("P018", "M5ia", "Thompson", 28, "Female", "Allergic Reaction", "Outpatient"));
-    patientList.add(new Patient("P019", "Henry", "Clark", 60, "Male", "Pulmonary Embolism", "Inpatient"));
-    patientList.add(new Patient("P020", "Amelia", "Lewis", 53, "Female", "Severe Sepsis", "Inpatient"));
-    
-    System.out.println("20 Test Patients Loaded Successfully.");
-}
+    private void loadTestData() {
+        patientList.add(new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P002", "Jane", "Smith", 30, "Female", "Appendicitis", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P003", "Michael", "Johnson", 62, "Male", "Pneumonia", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P004", "Emily", "Davis", 25, "Female", "Migraine", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P005", "Robert", "Brown", 78, "Male", "Heart Failure", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P006", "Sarah", "Wilson", 40, "Female", "Fractured Arm", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P007", "David", "Lee", 55, "Male", "Type 2 Diabetes", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P008", "Laura", "Garcia", 29, "Female", "Severe Asthma", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P009", "James", "Martinez", 12, "Male", "Tonsillitis", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P010", "Maria", "Rodriguez", 50, "Female", "Covid-19", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P011", "William", "Taylor", 34, "Male", "Acute Pancreatitis", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P012", "Olivia", "Anderson", 22, "Female", "Concussion", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P013", "Thomas", "Moore", 67, "Male", "Chronic Bronchitis", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P014", "Sophia", "Jackson", 19, "Female", "Urinary Tract Infection", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P015", "Benjamin", "White", 81, "Male", "Hip Fracture", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P016", "Charlotte", "Harris", 36, "Female", "Gallstones", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P017", "Alexander", "Martin", 48, "Male", "Gastrointestinal Bleeding", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P018", "M5ia", "Thompson", 28, "Female", "Allergic Reaction", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P019", "Henry", "Clark", 60, "Male", "Pulmonary Embolism", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P020", "Amelia", "Lewis", 53, "Female", "Severe Sepsis", PatientCategory.INPATIENT));
+
+        System.out.println("20 Test Patients Loaded Successfully.");
+    }
 
     /**
      * register a patient to the arrayList
+     *
      * @param patient
-     * @return              message telling the user the patient was registered successfully
+     * @return message telling the user the patient was registered successfully
      */
     public void registerPatient(Patient patient) {
 
         patientList.add(patient);
 
-        System.out.println("Patient registered Successfully!");
+        //increment nextIdNumber only when registerPatient is successful to prevent over incrementation on exit
+        nextIdNumber++;
+
+        System.out.println("\n[*] Patient registered Successfully!");
     }
 
     /**
      * Search for a patient by patientID
+     *
      * @param patientID
-     * @return              will return all attributes of the patient class
+     * @return will return all attributes of the patient class
      */
     public Patient searchPatient(String patientID) {
 
@@ -73,9 +82,10 @@ public class PatientManager {
 
     /**
      * Update patient details
+     *
      * @param patientID
      * @param updatedInfo
-     * @return              return true if a successful update occurs, false if not
+     * @return return true if a successful update occurs, false if not
      */
     public boolean updatePatientDetails(String patientID, Patient updatedInfo) {
 
@@ -83,7 +93,6 @@ public class PatientManager {
 
         if (foundPatient != null) {
 
-            foundPatient.setPatientID(updatedInfo.getPatientID());
             foundPatient.setFirstName(updatedInfo.getFirstName());
             foundPatient.setLastName(updatedInfo.getLastName());
             foundPatient.setAge(updatedInfo.getAge());
@@ -117,6 +126,9 @@ public class PatientManager {
 
     /**
      * Deletes patient from arrayList
+     * will not reformat patient IDs on deletion as each patient's ID is unique and assigned once
+     * in accordance with proper primary key implementation
+     *
      * @param patientID
      * @return
      */
@@ -133,23 +145,23 @@ public class PatientManager {
     }
 
     /**
-     * 
+     *
      */
-    public void listIntpatients(){
+    public void listIntpatients() {
 
         System.out.println("\n--- List of Inpatients ---");
         boolean foundInpatient = false;
 
-        for(Patient p : patientList){
+        for (Patient p : patientList) {
 
-            if("Inpatient".equalsIgnoreCase(p.getPatientCategory())){
+            if (p.getPatientCategory() == PatientCategory.INPATIENT) {
 
                 System.out.println("{ID: " + p.getPatientID() + "} Name: " + p.getFirstName() + " " + p.getLastName());
                 foundInpatient = true;
             }
         }
 
-        if(!foundInpatient){
+        if (!foundInpatient) {
             System.out.println("[!] No Inpatients in Patient Registry.");
         }
     }
@@ -157,10 +169,14 @@ public class PatientManager {
     /**
      * @return formatted String
      */
-    public String generateNextPatientId(){
+    public String generateNextPatientId() {
 
-        int nextNumber = patientList.size()+1;
-        return String.format("P%03d", nextNumber);
+        String newId = String.format("P%03d", nextIdNumber).toUpperCase();
+        return newId;
+    }
+
+    public List<Patient> getPatientList() {
+        return patientList;
     }
 
 }

@@ -2,9 +2,12 @@ package com.medicare;
 
 import java.util.Scanner;
 
+import com.medicare.model.Inpatient;
 import com.medicare.model.Patient;
+import com.medicare.model.PatientCategory;
 import com.medicare.services.BedManager;
 import com.medicare.services.PatientManager;
+import com.medicare.services.ReportManager;
 import com.medicare.util.ReturnToMenuExeption;
 
 public class Main {
@@ -17,8 +20,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         PatientManager patientManager = new PatientManager();
         BedManager bedManager = new BedManager();
-
-        patientManager.loadTestData();
+        ReportManager reportManager = new ReportManager(bedManager, patientManager);
 
         boolean running = true;
 
@@ -31,7 +33,8 @@ public class Main {
                 System.out.println("Welcome to Medicare, type \"exit\" at any point to return to the main menu...");
                 System.out.println("1. Patient Management");
                 System.out.println("2. Bed Management");
-                System.out.println("3. Exit System");
+                System.out.println("3. Report System");
+                System.out.println("4. Exit System");
                 String choice = promptUser(sc, "Select Menu Option: ");
 
                 switch (choice) {
@@ -47,6 +50,10 @@ public class Main {
                         break;
 
                     case "3":
+                        handleReportSystemMenu(sc, reportManager);
+                        break;
+
+                    case "4":
                         System.out.println("Stopping Program...");
                         System.out.println("Exiting System...");
                         running = false;
@@ -58,6 +65,55 @@ public class Main {
         }
 
         sc.close();
+    }
+
+    private static void handleReportSystemMenu(Scanner sc, ReportManager reportManager) {
+
+        boolean inReportMenu = true;
+
+        while (inReportMenu) {
+
+            System.out.println("\n=== REPORTING SYSTEM ===");
+            System.out.println("==========================");
+            System.out.println("1. Display all Patients Report");
+            System.out.println("2. Display Occupied Bed Report");
+            System.out.println("3. Display Available Bed Report");
+            System.out.println("4. Display Summary Statistics");
+            System.out.println("5. Return to Main Menu");
+
+            String input = promptUser(sc, "Select Menu Option: ");
+
+            switch (input) {
+
+                case "1":
+                    reportManager.displayAllPatientsReport();
+                    System.out.println();
+                    break;
+
+                case "2":
+                    reportManager.displayBedStatusReport(true);
+                    System.out.println();
+                    break;
+
+                case "3":
+                    reportManager.displayBedStatusReport(false);
+                    System.out.println();
+                    break;
+
+                case "4":
+                    reportManager.displaySummaryStatistics();
+                    System.out.println();
+                    break;
+
+                case "5":
+                    System.out.println("Returning to main menu...");
+                    inReportMenu = false;
+                    break;
+
+                default:
+                    System.out.println("[!] Invalid Selection, please try again.");
+            }
+        }
     }
 
     private static void handlePatientManagementMenu(Scanner sc, PatientManager patientManager) {
@@ -78,13 +134,14 @@ public class Main {
             String input = promptUser(sc, "Select Menu Option: ");
 
             //TODO: #1 handle input validation
-            //TODO: #2 allow user to dial back to main menu at any input time
             switch (input) {
 
                 case "1":
-                    System.out.println("\n--- Patient Registry ---");
-                    System.out.println("Last entered Patient ID: ");
-                    String id = promptUser(sc, "Enter Patient ID: ");
+                    System.out.println("\n----------------------------");
+                    System.out.println("--- Patient Registration ---");
+                    System.out.println("----------------------------");
+                    String id = patientManager.generateNextPatientId();
+                    System.out.println("Assigned Patient ID: " + id);
                     String fName = promptUser(sc, "Enter Patient First Name: ");
                     String lName = promptUser(sc, "Enter Patient Last Name: ");
 
@@ -110,30 +167,29 @@ public class Main {
                     String gender = promptUser(sc, "Enter Patient Gender: ");
                     String condition = promptUser(sc, "Enter Patient Condition: ");
 
-                    String category = null;
                     boolean validCategory = false;
-
+                    Patient newPatient = null;
                     while (!validCategory) {
                         System.out.println("\n--- Patient Category ---");
                         System.out.println("1. Inpatient");
                         System.out.println("2. Emergency");
                         System.out.println("3. Outpatient");
-                        String choice = promptUser(sc, "Select Patient Category (1-3)");
+                        String choice = promptUser(sc, "Select Patient Category (1-3): ");
 
                         switch (choice) {
 
                             case "1":
-                                category = "Inpatient";
+                                newPatient = new Inpatient(id, fName, lName, age, gender, condition, PatientCategory.INPATIENT, "Unassigned");
                                 validCategory = true;
                                 break;
 
                             case "2":
-                                category = "Emergency";
+                                newPatient = new Patient(id, fName, lName, age, gender, condition, PatientCategory.EMERGENCY);
                                 validCategory = true;
                                 break;
 
                             case "3":
-                                category = "Outpatient";
+                                newPatient = new Patient(id, fName, lName, age, gender, condition, PatientCategory.OUTPATIENT);
                                 validCategory = true;
                                 break;
                             default:
@@ -141,24 +197,39 @@ public class Main {
                         }
                     }
 
-                    Patient newPatient = new Patient(id, fName, lName, age, gender, condition, category);
                     patientManager.registerPatient(newPatient);
 
                     break;
 
-
                 case "2":
-                    String patientId = promptUser(sc, "Enter Patient ID to search for: ");
-                    Patient found = patientManager.searchPatient(patientId);
+                    System.out.println("\n------------------------");
+                    System.out.println("--- Patient Finder ---");
+                    System.out.println("------------------------");
+                    System.out.println("[*] patient ID format (P001, P002, etc), not case sensitive");
+                    System.out.println();
 
-                    if (found != null) {
-                        System.out.println("Patient Found: " + found.toString());
-                    } else {
-                        System.out.println("[!] Patient not found, please try again");
+                    boolean isFound = false;
+
+                    String patientId = promptUser(sc, "Enter Patient ID to search for: ");
+                    while (!isFound) {
+                        Patient found = patientManager.searchPatient(patientId);
+
+                        if (found != null) {
+                            System.out.println("Patient Found: " + found.toString());
+                            isFound = true;
+                        } else {
+                            System.out.println("[!] Patient not found, please try again");
+                            patientId = promptUser(sc, "Enter Patient ID to search for: ");
+                        }
                     }
+
                     break;
 
                 case "3":
+                    System.out.println("\n-------------------------");
+                    System.out.println("--- Patient Updater ---");
+                    System.out.println("-------------------------");
+
                     String updateId = promptUser(sc, "Enter Patient ID to update: ");
 
                     Patient existingPatient = patientManager.searchPatient(updateId);
@@ -170,12 +241,12 @@ public class Main {
                         int updatedAge = existingPatient.getAge();
                         String updatedGender = existingPatient.getGender();
                         String updatedCondition = existingPatient.getMedicalCondition();
-                        String updatedCategory = existingPatient.getPatientCategory();
+                        PatientCategory updatedCategory = existingPatient.getPatientCategory();
 
                         boolean isUpdating = true;
 
                         while (isUpdating) {
-                            System.out.println("\n--- Update Patient: " + updatedFName + " " + updatedLName + " ---");
+                            System.out.println("\n--- Update Patient: " + updatedFName + " " + updatedLName + "{" + existingPatient.getPatientID() + "}" + " ---");
                             System.out.println("1. First Name       (Current: " + updatedFName + ")");
                             System.out.println("2. Last Name        (Current: " + updatedLName + ")");
                             System.out.println("3. Age              (Current: " + updatedAge + ")");
@@ -207,19 +278,51 @@ public class Main {
                                     updatedCondition = promptUser(sc, "Enter New Condition: ");
                                     break;
                                 case "6":
-                                    updatedCategory = promptUser(sc, "Enter New Category: ");
+
+                                    boolean validSelection = false;
+
+                                    while (!validSelection) {
+                                        System.out.println("\nSelect New Category:");
+                                        System.out.println("1. Inpatient");
+                                        System.out.println("2. Emergency");
+                                        System.out.println("3. Outpatient");
+                                        String catChoice = promptUser(sc, "Select choice (1-3): ");
+
+                                        switch (catChoice) {
+
+                                            case "1":
+                                                updatedCategory = PatientCategory.INPATIENT;
+                                                validSelection = true;
+                                                break;
+
+                                            case "2":
+                                                updatedCategory = PatientCategory.EMERGENCY;
+                                                validSelection = true;
+                                                break;
+
+                                            case "3":
+                                                updatedCategory = PatientCategory.OUTPATIENT;
+                                                validSelection = true;
+                                                break;
+
+                                            default:
+                                                System.out.println("[!] Invalid Selection, please enter 1, 2, or 3.");
+
+                                        }
+                                    }
+
                                     break;
                                 case "7":
                                     Patient updatedPatientData = new Patient(updateId, updatedFName, updatedLName, updatedAge, updatedGender, updatedCondition, updatedCategory);
                                     patientManager.updatePatientDetails(updateId, updatedPatientData);
 
-                                    System.out.println("Patient updated successfully!");
+                                    System.out.println("\n[*] Patient updated successfully!");
                                     break;
                                 case "8":
                                     updatedPatientData = new Patient(updateId, updatedFName, updatedLName, updatedAge, updatedGender, updatedCondition, updatedCategory);
                                     patientManager.updatePatientDetails(updateId, updatedPatientData);
 
-                                    System.out.println("Patient updated successfully!");
+                                    System.out.println("\n[*] Patient updated successfully! Exiting...");
                                     isUpdating = false;
                                     break;
                                 default:
@@ -231,6 +334,9 @@ public class Main {
                     }
                     break;
                 case "4":
+                    System.out.println("\n--------------------------");
+                    System.out.println("--- Patient Deletion ---");
+                    System.out.println("--------------------------");
                     patientId = promptUser(sc, "Enter Patient ID to delete: ");
 
                     boolean deleted = patientManager.deletePatient(patientId);
@@ -246,13 +352,16 @@ public class Main {
 
                 case "5":
 
-                    System.out.println("\n--- Patient Data ---");
+                    System.out.println("\n--------------------------");
+                    System.out.println("--- Patient Database ---");
+                    System.out.println("--------------------------");
                     patientManager.displayAllPatients();
                     break;
 
                 case "6":
                     System.out.println("Returning to Main Menu...");
                     inPatientMenu = false;
+                    break;
 
                 default:
                     System.out.println("[!] Invalid selection, please try again.");
@@ -286,7 +395,9 @@ public class Main {
 
                 case "1":
 
-                    System.out.println("\n--- Bed Allocation ---");
+                    System.out.println("\n------------------------");
+                    System.out.println("--- Bed Allocation ---");
+                    System.out.println("------------------------");
                     patientManager.listIntpatients();
                     String patientId = promptUser(sc, "Enter Patient ID for allocation: ");
                     Patient patient = patientManager.searchPatient(patientId);
@@ -300,23 +411,31 @@ public class Main {
 
                 case "2":
 
-                    System.out.println("\n--- Bed Release ---");
+                    System.out.println("\n---------------------");
+                    System.out.println("--- Bed Release ---");
+                    System.out.println("---------------------");
                     String bedNumber = promptUser(sc, "Enter Bed Number to release (e.g., B01): ");
                     bedManager.releaseBed(bedNumber);
                     break;
 
                 case "3":
-                    System.out.println("\n--- Ward Layout ---");
+                    System.out.println("\n---------------------");
+                    System.out.println("--- Ward Layout ---");
+                    System.out.println("---------------------");
                     bedManager.displayCompleteLayout();
                     break;
 
                 case "4":
-                    System.out.println("\n--- Available Beds ---");
+                    System.out.println("\n------------------------");
+                    System.out.println("--- Available Beds ---");
+                    System.out.println("------------------------");
                     bedManager.displayAvailableBeds();
                     break;
 
                 case "5":
-                    System.out.println("\n--- Occupied Beds ---");
+                    System.out.println("\n-----------------------");
+                    System.out.println("--- Occupied Beds ---");
+                    System.out.println("-----------------------");
                     bedManager.displayOccupiedBeds();
                     break;
 
@@ -338,6 +457,7 @@ public class Main {
         String input = sc.nextLine();
 
         if (input.trim().equalsIgnoreCase("exit")) {
+            System.out.println("[!] action stopped [!]. Returning to main menu...");
             throw new ReturnToMenuExeption();
 
         }

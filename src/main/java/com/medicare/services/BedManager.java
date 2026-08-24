@@ -2,6 +2,7 @@ package com.medicare.services;
 
 import com.medicare.model.Bed;
 import com.medicare.model.Patient;
+import com.medicare.model.PatientCategory;
 
 /**
  * BedManager
@@ -22,15 +23,12 @@ public class BedManager {
     /**
      *
      */
-
     public void initialiseBeds() {
         int bedCounter = 1;
 
         for (int i = 0; i < wardLayout.length; i++) {
 
             for (int j = 0; j < wardLayout[i].length; j++) {
-
-                
 
                 String bedID = String.format("B%02d", bedCounter);
 
@@ -49,8 +47,7 @@ public class BedManager {
      */
     public boolean allocateBeds(Patient patient) {
 
-        System.out.println("DEBUG: Testing Patient Category -> '" + patient.getPatientCategory() + "'");
-        if (patient == null || !"Inpatient".equalsIgnoreCase(patient.getPatientCategory())) {
+        if (patient == null || patient.getPatientCategory() != PatientCategory.INPATIENT) {
             System.out.println("Allocation failed: Patient must be categorised as 'Inpatient'.");
 
             return false;
@@ -115,15 +112,15 @@ public class BedManager {
                 Bed currentBed = wardLayout[i][j];
 
                 if (currentBed.isOccupied()) {
-                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + "]"); 
-                }else {
+                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + "]");
+                } else {
                     System.out.print("[" + currentBed.getBedNumber() + " - Empty]");
                 }
             }
 
             System.out.println();
         }
-        
+
     }
 
     /**
@@ -150,7 +147,6 @@ public class BedManager {
         if (!hasAvailable) {
             System.out.println("No Avaialble beds found (Ward is Full)");
         }
-        
 
     }
 
@@ -179,7 +175,56 @@ public class BedManager {
         if (!hasOccupied) {
             System.out.println("No occupied beds at the moment.");
         }
-        
+
+    }
+
+    public Bed[][] getWardLayout() {
+        return wardLayout;
+    }
+
+    public int getTotalBedCount(){
+
+        int total=0;
+
+        for (int i = 0; i < wardLayout.length; i++){
+            total += wardLayout[i].length;
+        }
+
+        return total;
+    }
+
+    public int getOccupiedBedCount(){
+
+        int count = 0;
+
+        for (int i = 0; i < wardLayout.length; i++) {
+            for(int j = 0; j < wardLayout[i].length; j++){
+
+                Bed bed = wardLayout[i][j];
+
+                if(bed != null && bed.isOccupied()){
+                    count++;
+                }
+            }
+            
+        }
+
+        return count;
+    }
+
+    public int getAvailableBedCount(){
+
+        return getTotalBedCount() - getOccupiedBedCount();
+    }
+
+    public double getOccupancyPercentage(){
+
+        int total = getTotalBedCount();
+
+        if(total==0)
+            return 0.0;
+
+        return ((double) getOccupiedBedCount() / total) * 100.0;
     }
 
 }
