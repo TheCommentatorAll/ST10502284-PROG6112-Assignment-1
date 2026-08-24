@@ -1,18 +1,19 @@
-package com.medicare.model;
+package main.java.com.medicare.model;
 
 public class Patient {
 
-    private String patientID;
+    private final String patientId;
     private String firstName;
     private String lastName;
     private int age;
     private String gender;
     private String medicalCondition;
-    private String patientCategory;
+    private PatientCategory patientCategory;
 
-    public Patient(String patientID, String firstName, String lastName, int age, String gender, String medicalCondition, String patientCategory) {
+    public Patient(String patientId, String firstName, String lastName, int age, String gender, String medicalCondition,
+            PatientCategory patientCategory) {
 
-        this.patientID = patientID;
+        this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -22,11 +23,7 @@ public class Patient {
     }
 
     public String getPatientID() {
-        return patientID;
-    }
-
-    public void setPatientID(String patientID) {
-        this.patientID = patientID;
+        return patientId;
     }
 
     public String getFirstName() {
@@ -69,17 +66,24 @@ public class Patient {
         this.medicalCondition = medicalCondition;
     }
 
-    public String getPatientCategory() {
+    public PatientCategory getPatientCategory() {
         return patientCategory;
     }
 
-    public void setPatientCategory(String patientCategory) {
+    public void setPatientCategory(PatientCategory patientCategory){
         this.patientCategory = patientCategory;
+    }
+
+    public void displayDetails() {
+        System.out.printf("| patientId :: %-5s | first-Name :: %-10s | last-Name :: %-15s | age :: %-4d | gender :: %-10s | condition :: %-25s | category :: %-10s |",
+                patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 
     @Override
     public String toString() {
-        return String.format("patientId=%-6s | firstName=%-20s | lastName=%-20s | age=&-4d | gender=%-10s | medicalCondition=%-30s | patientCategory=%-10s", patientID, firstName, lastName, age, gender, medicalCondition, patientCategory);
+        return String.format(
+                "| patientId :: %-5s | first-Name :: %-10s | last-Name :: %-10s | age :: %-4d | gender :: %-8s | condition :: %-25s | category :: %-10s |",
+                patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 
 }
