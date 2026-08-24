@@ -1,4 +1,4 @@
-package com.medicare.model;
+package main.java.com.medicare.model;
 
 public class Patient {
 
