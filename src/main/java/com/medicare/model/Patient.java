@@ -74,10 +74,11 @@ public class Patient {
         this.patientCategory = patientCategory;
     }
 
-    public void displayDetails() {
-        System.out.printf("| patientId :: %-5s | first-Name :: %-10s | last-Name :: %-15s | age :: %-4d | gender :: %-10s | condition :: %-25s | category :: %-10s |",
-                patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
-    }
+    //depreciated method
+    // public void displayDetails() {
+    //     System.out.printf("| patientId :: %-5s | first-Name :: %-10s | last-Name :: %-15s | age :: %-4d | gender :: %-10s | condition :: %-25s | category :: %-10s |",
+    //             patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
+    // }
 
     @Override
     public String toString() {

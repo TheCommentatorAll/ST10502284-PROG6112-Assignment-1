@@ -8,17 +8,22 @@ import main.java.com.medicare.model.PatientCategory;
 
 public class PatientManager {
 
+    // I used an ArrayList to be able to add//remove//modify items within the array
+    // using the ArrayList class methods
     private List<Patient> patientList;
     private int nextIdNumber;
 
     public PatientManager() {
+        // initialise the ArrayList
         this.patientList = new ArrayList<>();
+        // loads patient test data on object creation
         loadTestData();
+        // sets nextIdNumber to 1 more than the ArrayList size
         this.nextIdNumber = patientList.size() + 1;
     }
 
-    //temporary patient data entry for testing
-    //comment for testing, uncomment for program
+    // temporary patient data entry for testing
+    // comment for JUnit testing, uncomment for program testing
     public void loadTestData() {
         patientList.add(new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT));
         patientList.add(new Patient("P002", "Jane", "Smith", 30, "Female", "Appendicitis", PatientCategory.EMERGENCY));
@@ -45,21 +50,23 @@ public class PatientManager {
     }
 
     /**
-     * register a patient to the arrayList
+     * register a patient to the ArrayList
      *
-     * @param patient
-     * @return message telling the user the patient was registered successfully
+     * @param patient : object
+     * @return : boolean
+     *         true-> adds Patient to array list | false-> displays error msg
      */
     public boolean registerPatient(Patient patient) {
 
-        if(searchPatient(patient.getPatientID()) != null){
+        if (searchPatient(patient.getPatientID()) != null) {
             System.out.println("[!] Registration failed: Patient ID " + patient.getPatientID() + " already exists.");
             return false;
         }
 
         patientList.add(patient);
 
-        //increment nextIdNumber only when registerPatient is successful to prevent over incrementation on exit
+        // increment nextIdNumber only when registerPatient is successful to prevent
+        // over incrementation on exit and duplicate ID numbers
         nextIdNumber++;
 
         System.out.println("\n[*] Patient " + patient.getPatientID() + " registered Successfully!");
@@ -70,12 +77,14 @@ public class PatientManager {
      * Search for a patient by patientID
      *
      * @param patientID
-     * @return will return all attributes of the patient class
+     * @return will return all attributes of the patient class in a string format if
+     *         patientID matches
      */
     public Patient searchPatient(String patientID) {
 
-        //using for-each loop to read every item in patientList sequentially, don't need to care for its position
-        //read it as "for each patient (p) in (:) patientList"
+        // using for-each loop to read every item in patientList sequentially, don't
+        // need to care for its position
+        // read it as "for each patient (p) in (:) patientList"
         for (Patient p : patientList) {
 
             if (p.getPatientID().equalsIgnoreCase(patientID)) {
@@ -114,9 +123,11 @@ public class PatientManager {
 
     /*
      * Display a list of all patients
+     * 
      * @param none
+     * 
      * @return none
-     * printLn             error message if arrayList is empty, Patient toString if not
+     * printLn error message if arrayList is empty, Patient toString if not
      */
     public void displayAllPatients() {
 
@@ -241,27 +252,27 @@ public class PatientManager {
                 int rank1;
 
                 if (p1.getPatientCategory() == PatientCategory.INPATIENT) {
-                    rank1=1;
-                }else if(p1.getPatientCategory() == PatientCategory.EMERGENCY){
-                    rank1=2;
-                }else{
-                    rank1=3;
+                    rank1 = 1;
+                } else if (p1.getPatientCategory() == PatientCategory.EMERGENCY) {
+                    rank1 = 2;
+                } else {
+                    rank1 = 3;
                 }
 
                 int rank2;
 
-                if(p2.getPatientCategory() == PatientCategory.INPATIENT){
-                    rank2=1;
-                }else if(p2.getPatientCategory() == PatientCategory.EMERGENCY){
-                    rank2=2;
-                }else{
-                    rank2=3;
+                if (p2.getPatientCategory() == PatientCategory.INPATIENT) {
+                    rank2 = 1;
+                } else if (p2.getPatientCategory() == PatientCategory.EMERGENCY) {
+                    rank2 = 2;
+                } else {
+                    rank2 = 3;
                 }
 
-                if(rank1>rank2){
+                if (rank1 > rank2) {
 
                     patientList.set(j, p2);
-                    patientList.set(j+1, p1);
+                    patientList.set(j + 1, p1);
                 }
             }
         }

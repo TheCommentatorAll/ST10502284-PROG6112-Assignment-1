@@ -112,7 +112,7 @@ public class BedManager {
                 Bed currentBed = wardLayout[i][j];
 
                 if (currentBed.isOccupied()) {
-                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + "]");
+                    System.out.print("[" + currentBed.getBedNumber() + " - " + currentBed.getAssignedPatientId() + " ]");
                 } else {
                     System.out.print("[" + currentBed.getBedNumber() + " - Empty]");
                 }
@@ -124,11 +124,11 @@ public class BedManager {
     }
 
     /**
-     *
+     * Uses nested for-loops to iterate through the 2D array, 
+     * creates a Bed object to store the current bed and checks if it is Occupied/Available
      */
     public void displayAvailableBeds() {
 
-        System.out.println("--- Available Beds ---");
         boolean hasAvailable = false;
         for (int i = 0; i < wardLayout.length; i++) {
             for (int j = 0; j < wardLayout[i].length; j++) {
@@ -151,11 +151,11 @@ public class BedManager {
     }
 
     /**
-     *
+     * Uses nested for-loops to iterate through the 2D array,
+     * creates a Bed object to store the current bed and checks if it is Occuipied/Available
      */
     public void displayOccupiedBeds() {
 
-        System.out.println("--- Occupied Beds ---");
         boolean hasOccupied = false;
         for (int i = 0; i < wardLayout.length; i++) {
             for (int j = 0; j < wardLayout[i].length; j++) {
@@ -178,10 +178,18 @@ public class BedManager {
 
     }
 
+
+    /**
+     * @return : 2D array
+     */
     public Bed[][] getWardLayout() {
         return wardLayout;
     }
 
+    /**
+     * Iterates through the 2D array and uses a counter variable to store the number of beds in the array
+     * @return : total number of beds
+     */
     public int getTotalBedCount(){
 
         int total=0;
@@ -193,6 +201,11 @@ public class BedManager {
         return total;
     }
 
+    /**
+     * Uses a nested for-loop to iterate through the array,
+     * checks whether the current bed is occupied, increments count if true
+     * @return : total number of occupied beds
+     */
     public int getOccupiedBedCount(){
 
         int count = 0;
@@ -212,6 +225,11 @@ public class BedManager {
         return count;
     }
 
+
+    /**
+     * 
+     * @return
+     */
     public int getAvailableBedCount(){
 
         return getTotalBedCount() - getOccupiedBedCount();
