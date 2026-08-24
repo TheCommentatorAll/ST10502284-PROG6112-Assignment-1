@@ -1,14 +1,14 @@
-package com.medicare;
+package main.java.com.medicare;
 
 import java.util.Scanner;
 
-import com.medicare.model.Inpatient;
-import com.medicare.model.Patient;
-import com.medicare.model.PatientCategory;
-import com.medicare.services.BedManager;
-import com.medicare.services.PatientManager;
-import com.medicare.services.ReportManager;
-import com.medicare.util.ReturnToMenuExeption;
+import main.java.com.medicare.model.Inpatient;
+import main.java.com.medicare.model.Patient;
+import main.java.com.medicare.model.PatientCategory;
+import main.java.com.medicare.service.BedManager;
+import main.java.com.medicare.service.PatientManager;
+import main.java.com.medicare.service.ReportManager;
+import main.java.com.medicare.util.ReturnToMenuExeption;
 
 public class Main {
 
@@ -326,7 +326,7 @@ public class Main {
                                     isUpdating = false;
                                     break;
                                 default:
-                                    System.out.println("[!] Invalid selection. Please try again.");
+                                    System.out.println("\n[!] Invalid selection. Please try again.");
                             }
                         }
                     } else {
@@ -355,8 +355,70 @@ public class Main {
                     System.out.println("\n--------------------------");
                     System.out.println("--- Patient Database ---");
                     System.out.println("--------------------------");
-                    patientManager.displayAllPatients();
-                    break;
+                    
+
+                    if(patientManager.getPatientList().isEmpty()){
+                        patientManager.displayAllPatients();
+                    }else{
+                        String dbChoice = promptUser(sc, "[?] Do you want to sort the Patient Database? (Y/N): ").toUpperCase();
+
+                        switch (dbChoice) {
+
+                        case "Y":
+                            System.out.println("\n--------------------");
+                            System.out.println("--- Sorting Menu ---");
+                            System.out.println("--------------------");
+                            System.out.println("1. Sort by Patient ID");
+                            System.out.println("2. Sort by Patient Category");
+                            System.out.println("3. Sort by Patient Age");
+                            System.out.println("4. Sort by Patient Last Name");
+                            System.out.println("5. Return to Menu");
+                            String sortChoice = promptUser(sc, "Select Menu Option: ");
+                            
+
+                            switch (sortChoice) {
+
+                                case "1":
+                                    patientManager.sortByPatientId();
+                                    patientManager.displayAllPatients();
+                                    break;
+
+                                case "2":
+                                    patientManager.sortByCategory();
+                                    patientManager.displayAllPatients();
+                                    break;
+
+                                case "3":
+                                    patientManager.sortByAge();
+                                    patientManager.displayAllPatients();
+                                    break;
+
+                                case "4":
+                                    patientManager.sortByLastName();
+                                    patientManager.displayAllPatients();
+                                    break;
+
+                                case "5":
+                                    System.out.println("[*] Returning to menu...");
+                                    break;
+
+                                default:
+                                    System.out.println("[!] Not a valid choice. Please try again.");
+                                    break;
+                            }
+                            break;
+
+                            case "N":
+                                System.out.println("[*] NO Selected. Returning to Main Menu...");
+                                break;
+
+                            default:
+                                System.out.println("[!] Not a valid choice. Please try again");
+                                break;
+                        }
+                        
+                    }
+                            
 
                 case "6":
                     System.out.println("Returning to Main Menu...");
@@ -367,6 +429,7 @@ public class Main {
                     System.out.println("[!] Invalid selection, please try again.");
             }
         }
+
     }
 
     /**
@@ -447,9 +510,13 @@ public class Main {
     }
 
     /*
-     * Helper method for Scanner inputs to allow for menu returning, uses exeption handling
+     * Helper method for Scanner inputs to allow for menu returning, uses exeption
+     * handling
+     * 
      * @param sc : Scanner
+     * 
      * @param message : string
+     * 
      * @return input : String
      */
     public static String promptUser(Scanner sc, String message) {
