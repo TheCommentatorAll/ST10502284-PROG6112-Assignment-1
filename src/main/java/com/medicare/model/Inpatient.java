@@ -25,9 +25,9 @@ public class Inpatient extends Patient {
     }
 
     @Override
-    public void displayDetails() {
-        super.displayDetails();
-        System.out.printf("  └─ Ward Number: %s | Bed Number: %s%n", wardNumber, bedNumber);
+    public String toString() {
+        super.toString();
+        return String.format("  └─ Ward Number: %s | Bed Number: %s%n", wardNumber, bedNumber);
     }
 
 }

@@ -13,36 +13,36 @@ public class PatientManager {
 
     public PatientManager() {
         this.patientList = new ArrayList<>();
-        //loadTestData();
+        loadTestData();
         this.nextIdNumber = patientList.size() + 1;
     }
 
     //temporary patient data entry for testing
-    // comment for testing, uncomment for program
-    // private void loadTestData() {
-    //     patientList.add(new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT));
-    //     patientList.add(new Patient("P002", "Jane", "Smith", 30, "Female", "Appendicitis", PatientCategory.EMERGENCY));
-    //     patientList.add(new Patient("P003", "Michael", "Johnson", 62, "Male", "Pneumonia", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P004", "Emily", "Davis", 25, "Female", "Migraine", PatientCategory.OUTPATIENT));
-    //     patientList.add(new Patient("P005", "Robert", "Brown", 78, "Male", "Heart Failure", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P006", "Sarah", "Wilson", 40, "Female", "Fractured Arm", PatientCategory.EMERGENCY));
-    //     patientList.add(new Patient("P007", "David", "Lee", 55, "Male", "Type 2 Diabetes", PatientCategory.OUTPATIENT));
-    //     patientList.add(new Patient("P008", "Laura", "Garcia", 29, "Female", "Severe Asthma", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P009", "James", "Martinez", 12, "Male", "Tonsillitis", PatientCategory.OUTPATIENT));
-    //     patientList.add(new Patient("P010", "Maria", "Rodriguez", 50, "Female", "Covid-19", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P011", "William", "Taylor", 34, "Male", "Acute Pancreatitis", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P012", "Olivia", "Anderson", 22, "Female", "Concussion", PatientCategory.EMERGENCY));
-    //     patientList.add(new Patient("P013", "Thomas", "Moore", 67, "Male", "Chronic Bronchitis", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P014", "Sophia", "Jackson", 19, "Female", "Urinary Tract Infection", PatientCategory.OUTPATIENT));
-    //     patientList.add(new Patient("P015", "Benjamin", "White", 81, "Male", "Hip Fracture", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P016", "Charlotte", "Harris", 36, "Female", "Gallstones", PatientCategory.EMERGENCY));
-    //     patientList.add(new Patient("P017", "Alexander", "Martin", 48, "Male", "Gastrointestinal Bleeding", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P018", "M5ia", "Thompson", 28, "Female", "Allergic Reaction", PatientCategory.OUTPATIENT));
-    //     patientList.add(new Patient("P019", "Henry", "Clark", 60, "Male", "Pulmonary Embolism", PatientCategory.INPATIENT));
-    //     patientList.add(new Patient("P020", "Amelia", "Lewis", 53, "Female", "Severe Sepsis", PatientCategory.INPATIENT));
+    //comment for testing, uncomment for program
+    public void loadTestData() {
+        patientList.add(new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P002", "Jane", "Smith", 30, "Female", "Appendicitis", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P003", "Michael", "Johnson", 62, "Male", "Pneumonia", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P004", "Emily", "Davis", 25, "Female", "Migraine", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P005", "Robert", "Brown", 78, "Male", "Heart Failure", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P006", "Sarah", "Wilson", 40, "Female", "Fractured Arm", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P007", "David", "Lee", 55, "Male", "Type 2 Diabetes", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P008", "Laura", "Garcia", 29, "Female", "Severe Asthma", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P009", "James", "Martinez", 12, "Male", "Tonsillitis", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P010", "Maria", "Rodriguez", 50, "Female", "Covid-19", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P011", "William", "Taylor", 34, "Male", "Acute Pancreatitis", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P012", "Olivia", "Anderson", 22, "Female", "Concussion", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P013", "Thomas", "Moore", 67, "Male", "Chronic Bronchitis", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P014", "Sophia", "Jackson", 19, "Female", "Urinary Tract Infection", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P015", "Benjamin", "White", 81, "Male", "Hip Fracture", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P016", "Charlotte", "Harris", 36, "Female", "Gallstones", PatientCategory.EMERGENCY));
+        patientList.add(new Patient("P017", "Alexander", "Martin", 48, "Male", "Gastrointestinal Bleeding", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P018", "M5ia", "Thompson", 28, "Female", "Allergic Reaction", PatientCategory.OUTPATIENT));
+        patientList.add(new Patient("P019", "Henry", "Clark", 60, "Male", "Pulmonary Embolism", PatientCategory.INPATIENT));
+        patientList.add(new Patient("P020", "Amelia", "Lewis", 53, "Female", "Severe Sepsis", PatientCategory.INPATIENT));
 
-    //     System.out.println("20 Test Patients Loaded Successfully.");
-    // }
+        System.out.println("20 Test Patients Loaded Successfully.");
+    }
 
     /**
      * register a patient to the arrayList
@@ -62,7 +62,7 @@ public class PatientManager {
         //increment nextIdNumber only when registerPatient is successful to prevent over incrementation on exit
         nextIdNumber++;
 
-        System.out.println("\n[*] Patient " + patient.getPatientID() + "registered Successfully!");
+        System.out.println("\n[*] Patient " + patient.getPatientID() + " registered Successfully!");
         return true;
     }
 
