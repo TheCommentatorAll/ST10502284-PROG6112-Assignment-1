@@ -19,7 +19,10 @@ public class ReportManager {
 
     public void displayAllPatientsReport() {
 
+        System.out.println("\n-------------------------------");
         System.out.println("\n--- Patients Report ---");
+        System.out.println("\n-------------------------------");
+
 
         List<Patient> patients = patientManager.getPatientList();
         if (patients.isEmpty()) {
@@ -41,8 +44,9 @@ public class ReportManager {
         } else {
             statusLabel = "Available";
         }
-
-        System.out.println("\n--- " + statusLabel.toUpperCase() + " beds ---");
+        System.out.println("\n-------------------------------");
+        System.out.println("--- " + statusLabel.toUpperCase() + " beds ---");
+        System.out.println("-------------------------------");
 
         Bed[][] layout = bedManager.getWardLayout();
         int matchCount = 0;
@@ -56,10 +60,10 @@ public class ReportManager {
 
                     if (status && currentBed.isOccupied()) {
 
-                        System.out.printf("Bed: %-5s | Status: " + statusLabel.toUpperCase() + " | Patient ID: %s\n", currentBed.getBedNumber(), currentBed.getAssignedPatientId());
+                        System.out.printf("Bed: %-3s | Status: " + statusLabel.toUpperCase() + " | Patient ID: %s" + "\n", currentBed.getBedNumber(), currentBed.getAssignedPatientId());
                         matchCount++;
                     } else if (!status && !currentBed.isOccupied()) {
-                        System.out.printf("Bed: %-5s | Status: " + statusLabel.toUpperCase(), currentBed.getBedNumber());
+                        System.out.printf("Bed: %-5s | Status: " + statusLabel.toUpperCase() + "\n", currentBed.getBedNumber());
                         matchCount++;
                     }
                 }
@@ -73,12 +77,15 @@ public class ReportManager {
                 System.out.println("[!] No beds are currently available (Ward is full)");
             }
         }
+        System.out.println("-------------------------------");
         System.out.println("Total " + statusLabel.toUpperCase() + ": " + matchCount);
+        System.out.println("-------------------------------");
+
     }
 
     public void displaySummaryStatistics() {
 
-        System.out.println("---------------------------------");
+        System.out.println("\n---------------------------------");
         System.out.println("--- STATISTICS SUMMARY REPORT ---");
         System.out.println("---------------------------------");
         System.out.println("Total Patients in Registry : " + patientManager.getPatientList().size());
