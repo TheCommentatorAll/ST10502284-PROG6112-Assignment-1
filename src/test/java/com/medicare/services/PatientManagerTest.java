@@ -14,12 +14,13 @@ public class PatientManagerTest {
 
     private PatientManager patientManager;
 
+    // Initialise PatientManager object
     @BeforeEach
     public void setUp() {
         patientManager = new PatientManager();
     }
 
-    // 1. Register a patient
+    // Register a patient
     @Test
     public void testRegisterPatient() {
         Patient p = new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT);
@@ -27,7 +28,7 @@ public class PatientManagerTest {
         assertNotNull(patientManager.searchPatient("P001"));
     }
 
-    // 2. Search for a patient
+    // Search for a patient
     @Test
     public void testSearchPatient() {
         Patient p = new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT);
@@ -38,7 +39,7 @@ public class PatientManagerTest {
         assertEquals("John", found.getFirstName());
     }
 
-    // 3. Update patient details
+    // Update patient details
     @Test
     public void testUpdatePatientDetails() {
         Patient p = new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT);
@@ -51,7 +52,7 @@ public class PatientManagerTest {
         assertEquals("Smith", patientManager.searchPatient("P001").getLastName());
     }
 
-    // 4. Delete a patient
+    // Delete a patient
     @Test
     public void testDeletePatient() {
         Patient p = new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT);
@@ -61,7 +62,7 @@ public class PatientManagerTest {
         assertNull(patientManager.searchPatient("P001"));
     }
 
-    // 7. Prevent duplicate Patient IDs
+    // Prevent duplicate Patient IDs
     @Test
     public void testPreventDuplicatePatientIds() {
         Patient p1 = new Patient("P001", "John", "Doe", 45, "Male", "Hypertension", PatientCategory.OUTPATIENT);
@@ -73,7 +74,7 @@ public class PatientManagerTest {
         assertFalse(duplicateResult, "Registration should fail when using an existing Patient ID.");
     }
 
-    // 10. Sort patients by surname or Patient ID
+    // Sort patients by surname or Patient ID
     @Test
     public void testSortPatientsBySurname() {
         Patient p1 = new Patient("P002", "Jane", "Smith", 30, "Female", "Flu", PatientCategory.OUTPATIENT);
