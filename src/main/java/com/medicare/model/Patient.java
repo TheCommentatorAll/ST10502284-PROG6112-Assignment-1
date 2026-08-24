@@ -75,14 +75,14 @@ public class Patient {
     }
 
     public void displayDetails() {
-        System.out.printf("ID: %s | Name: %s %s | Age: %d | Gender: %s | Condition: %s | Category: %s%n",
+        System.out.printf("| patientId :: %-5s | first-Name :: %-10s | last-Name :: %-15s | age :: %-4d | gender :: %-10s | condition :: %-25s | category :: %-10s |",
                 patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 
     @Override
     public String toString() {
         return String.format(
-                "|\tpatientId :: %-6s\t|\tfirstName :: %-15s\t|\tlastName :: %-15s\t|\tage :: %-4d\t|\tgender :: %-10s\t|\tcondition :: %-25s\t|\tcategory :: %-10s\t|",
+                "| patientId :: %-5s | first-Name :: %-10s | last-Name :: %-10s | age :: %-4d | gender :: %-8s | condition :: %-25s | category :: %-10s |",
                 patientId, firstName, lastName, age, gender, medicalCondition, patientCategory);
     }
 

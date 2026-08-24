@@ -133,7 +133,7 @@ public class Main {
 
             String input = promptUser(sc, "Select Menu Option: ");
 
-            //TODO: #1 handle input validation
+            // TODO: #1 handle input validation
             switch (input) {
 
                 case "1":
@@ -179,17 +179,20 @@ public class Main {
                         switch (choice) {
 
                             case "1":
-                                newPatient = new Inpatient(id, fName, lName, age, gender, condition, PatientCategory.INPATIENT, "Unassigned");
+                                newPatient = new Inpatient(id, fName, lName, age, gender, condition,
+                                        PatientCategory.INPATIENT, "Unassigned");
                                 validCategory = true;
                                 break;
 
                             case "2":
-                                newPatient = new Patient(id, fName, lName, age, gender, condition, PatientCategory.EMERGENCY);
+                                newPatient = new Patient(id, fName, lName, age, gender, condition,
+                                        PatientCategory.EMERGENCY);
                                 validCategory = true;
                                 break;
 
                             case "3":
-                                newPatient = new Patient(id, fName, lName, age, gender, condition, PatientCategory.OUTPATIENT);
+                                newPatient = new Patient(id, fName, lName, age, gender, condition,
+                                        PatientCategory.OUTPATIENT);
                                 validCategory = true;
                                 break;
                             default:
@@ -246,7 +249,8 @@ public class Main {
                         boolean isUpdating = true;
 
                         while (isUpdating) {
-                            System.out.println("\n--- Update Patient: " + updatedFName + " " + updatedLName + "{" + existingPatient.getPatientID() + "}" + " ---");
+                            System.out.println("\n--- Update Patient: " + updatedFName + " " + updatedLName + "{"
+                                    + existingPatient.getPatientID() + "}" + " ---");
                             System.out.println("1. First Name       (Current: " + updatedFName + ")");
                             System.out.println("2. Last Name        (Current: " + updatedLName + ")");
                             System.out.println("3. Age              (Current: " + updatedAge + ")");
@@ -313,13 +317,15 @@ public class Main {
 
                                     break;
                                 case "7":
-                                    Patient updatedPatientData = new Patient(updateId, updatedFName, updatedLName, updatedAge, updatedGender, updatedCondition, updatedCategory);
+                                    Patient updatedPatientData = new Patient(updateId, updatedFName, updatedLName,
+                                            updatedAge, updatedGender, updatedCondition, updatedCategory);
                                     patientManager.updatePatientDetails(updateId, updatedPatientData);
 
                                     System.out.println("\n[*] Patient updated successfully!");
                                     break;
                                 case "8":
-                                    updatedPatientData = new Patient(updateId, updatedFName, updatedLName, updatedAge, updatedGender, updatedCondition, updatedCategory);
+                                    updatedPatientData = new Patient(updateId, updatedFName, updatedLName, updatedAge,
+                                            updatedGender, updatedCondition, updatedCategory);
                                     patientManager.updatePatientDetails(updateId, updatedPatientData);
 
                                     System.out.println("\n[*] Patient updated successfully! Exiting...");
@@ -355,14 +361,12 @@ public class Main {
                     System.out.println("\n--------------------------");
                     System.out.println("--- Patient Database ---");
                     System.out.println("--------------------------");
-                    
 
-                    if(patientManager.getPatientList().isEmpty()){
-                        patientManager.displayAllPatients();
-                    }else{
-                        String dbChoice = promptUser(sc, "[?] Do you want to sort the Patient Database? (Y/N): ").toUpperCase();
+                    patientManager.displayAllPatients();
+                    String dbChoice = promptUser(sc, "[?] Do you want to sort the Patient Database? (Y/N): ")
+                            .toUpperCase();
 
-                        switch (dbChoice) {
+                    switch (dbChoice) {
 
                         case "Y":
                             System.out.println("\n--------------------");
@@ -374,7 +378,6 @@ public class Main {
                             System.out.println("4. Sort by Patient Last Name");
                             System.out.println("5. Return to Menu");
                             String sortChoice = promptUser(sc, "Select Menu Option: ");
-                            
 
                             switch (sortChoice) {
 
@@ -408,17 +411,14 @@ public class Main {
                             }
                             break;
 
-                            case "N":
-                                System.out.println("[*] NO Selected. Returning to Main Menu...");
-                                break;
+                        case "N":
+                            System.out.println("[*] NO Selected. Returning to Main Menu...");
+                            break;
 
-                            default:
-                                System.out.println("[!] Not a valid choice. Please try again");
-                                break;
-                        }
-                        
+                        default:
+                            System.out.println("[!] Not a valid choice. Please try again");
+                            break;
                     }
-                            
 
                 case "6":
                     System.out.println("Returning to Main Menu...");
