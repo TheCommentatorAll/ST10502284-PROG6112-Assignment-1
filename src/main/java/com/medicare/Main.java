@@ -34,6 +34,8 @@ public class Main {
                 System.out.println("2. Bed Management");
                 System.out.println("3. Report System");
                 System.out.println("4. Exit System");
+
+                // I call the static void prompt user method below ()
                 String choice = promptUser(sc, "Select Menu Option: ");
 
                 switch (choice) {

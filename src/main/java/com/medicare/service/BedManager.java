@@ -21,7 +21,7 @@ public class BedManager {
     }
 
     /**
-     *
+     * Generates ward layout and initialises bed names (e.g., B01, B02, etc)
      */
     public void initialiseBeds() {
         int bedCounter = 1;
@@ -42,8 +42,11 @@ public class BedManager {
     }
 
     /**
+     * I use if-statements to check Patient category and status
+     * then return true if INPATIENT or appnd. by allocating bed
      * @param patient
-     * @return
+     * @return : boolean            
+     * 
      */
     public boolean allocateBeds(Patient patient) {
 
@@ -72,6 +75,7 @@ public class BedManager {
     }
 
     /**
+     * 
      * @param bedNumber
      * @return
      */

@@ -17,7 +17,7 @@ public class PatientManager {
         // initialise the ArrayList
         this.patientList = new ArrayList<>();
         // loads patient test data on object creation
-        loadTestData();
+         loadTestData();
         // sets nextIdNumber to 1 more than the ArrayList size
         this.nextIdNumber = patientList.size() + 1;
     }
@@ -126,8 +126,8 @@ public class PatientManager {
      * 
      * @param none
      * 
-     * @return none
-     * printLn error message if arrayList is empty, Patient toString if not
+     * @return none         error message if empty | toString of each patient object if not
+     * 
      */
     public void displayAllPatients() {
 
