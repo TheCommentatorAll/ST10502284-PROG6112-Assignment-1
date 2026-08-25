@@ -7,8 +7,11 @@ The MediCare Patient & Bed Management System is a Java console application desig
 ## Usage Guide
 ### Running the Application
 > Compile and run Main.java
+
 > Use the interactive menu to register, update, delete, view patient details
+
 > Use the interactive menu to assign beds to INPATIENTS, view ward layout, release beds
+
 > Use the interactive menu to view summary statistics, view bed report, view patient report
 
 ## Running Unit Tests
