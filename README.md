@@ -8,18 +8,21 @@ The MediCare Patient & Bed Management System is a Java console application desig
 ### Running the Application
 > Compile and run Main.java
 
-> Use the interactive menu to register, update, delete, view patient details
+> Use the interactive menu to register, update, delete, view patient details, and more.
 
-> Use the interactive menu to assign beds to INPATIENTS, view ward layout, release beds
+> Use the interactive menu to assign beds to INPATIENTS, view ward layout, release beds, and more.
 
-> Use the interactive menu to view summary statistics, view bed report, view patient report
+> Use the interactive menu to view summary statistics, view bed report, view patient report.
 
 ## Running Unit Tests
 
 The unit tests validate core functionality such as duplicate ID prevention, ward capacity limits, and bed assignments.
 
 ### Important Note for Unit Tests:
->
+
+_To ensure that unit tests run completely fine without interference from preloaded data, please comment out the **loadTestData()** method definition inside **PatientManager.java**
+as well as the method call within its constructor_
+
 ## Folder Structure
 ```
 src/
