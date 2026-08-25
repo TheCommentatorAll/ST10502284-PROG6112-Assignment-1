@@ -15,11 +15,12 @@ The MediCare Patient & Bed Management System is a Java console application desig
 
 The unit tests validate core functionality such as duplicate ID prevention, ward capacity limits, and bed assignments.
 
-    Important Note for Unit Tests:
-    To ensure all unit tests run cleanly without interference from pre-loaded data, you must comment out the loadPatientDetails() method definition in the PatientManager class, as well as comment out its method call inside the PatientManager constructor.
+Important Note for Unit Tests:
+    To ensure all unit tests run cleanly without interference from pre-loaded data, 
+    you must comment out the loadPatientDetails() method definition in the PatientManager class, as well as comment out its method call inside the PatientManager constructor.
     
 ## Folder Structure
-
+```
 src/
 └── com/
     └── medicare/
@@ -39,6 +40,7 @@ test/
         └── service/
             ├── PatientManagerTest.java  # Unit tests for patient logic[cite: 2]
             └── BedManagerTest.java      # Unit tests for ward bed logic[cite: 2]
+```
 
 ## Dependency Management
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
